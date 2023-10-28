@@ -155,7 +155,7 @@ class Matriz{
 			sinal = this.calculaSinal(0,contC);
 			matmenor = new Matriz(numL-1,numC-1);
 			this.copiaMatrizMaiorParaMenor(mat,matmenor,0,contC);
-			detTemp = matmenor.determinanteOtimizadoV4();
+			detTemp = matmenor.determinanteOtimizadoV2();
 			resposta = resposta + (cofator * sinal * detTemp);
 		}
 		return (resposta);
@@ -170,7 +170,7 @@ class Matriz{
 		det = 0;
 
 		if(ordem > 0){
-			switch (ordem) {
+			switch (ordem){
 			    case 1:  det = this.detOrdem1(this);
 				     break;
 			    case 2:  det = this.detOrdem2(this);;
@@ -189,12 +189,12 @@ class Matriz{
 
 	//metodo otimizado 1
 
-	public int determinanteOtimizadoV1() {
+	public int determinanteOtimizadoV1(){
 		int ordem = this.retorneOrdem();
 		int det = 0;
 	
-		if (ordem > 0) {
-			switch (ordem) {
+		if(ordem > 0){
+			switch(ordem){
 				case 1:
 					det = this.detOrdem1(this);
 					break;
@@ -203,8 +203,8 @@ class Matriz{
 					break;
 				default:
 					// Verifica se tem zeros na primeira linha e economiza chamadas recursivas
-					for (int j = 0; j < this.getTamanhoColuna(); j++) {
-						if (this.getValor(0, j) == 0) {
+					for (int j = 0; j < this.getTamanhoColuna(); j++){
+						if(this.getValor(0, j) == 0){
 							continue; // pular colunas com zero
 						}
 						Matriz matmenor = new Matriz(ordem - 1, ordem - 1);
@@ -216,7 +216,7 @@ class Matriz{
 					}
 					break;
 			}
-		} else {
+		}else{
 			System.out.println("Matriz não é quadrada! Retornando 0");
 		}
 	
@@ -226,12 +226,12 @@ class Matriz{
 
 	//metodo otimizado V2
 
-	public int determinanteOtimizadoV2() {
+	public int determinanteOtimizadoV2(){
 		int ordem = this.retorneOrdem();
 		int det = 0;
 	
-		if (ordem > 0) {
-			switch (ordem) {
+		if(ordem > 0){
+			switch(ordem){
 				case 1:
 					det = this.detOrdem1(this);
 					break;
@@ -240,9 +240,9 @@ class Matriz{
 					break;
 				default:
 					// Verifica se tem zeros na primeira linha e economiza chamadas recursivas
-					for (int j = 0; j < this.getTamanhoColuna(); j++) {
+					for (int j = 0; j < this.getTamanhoColuna(); j++){
 						int valor0j = this.getValor(0, j);
-						if (valor0j == 0) {
+						if(valor0j == 0){
 							continue; // pular colunas com zero
 						}
 						Matriz matmenor = new Matriz(ordem - 1, ordem - 1);
@@ -253,20 +253,20 @@ class Matriz{
 						det += cofator * sinal * detTemp;
 					}
 					//verifica se há linhas proporcionais
-					for (int i = 1; i < ordem; i++) {
+					for(int i = 1; i < ordem; i++){
 						boolean linhaProporcional = true;
 						int valor0j = this.getValor(0, 0);
 						int valorij = this.getValor(i, 0);
-						if (valorij != 0 && valor0j != 0) {
-							if (valorij % valor0j != 0) {
+						if(valorij != 0 && valor0j != 0){
+							if(valorij % valor0j != 0){
 								linhaProporcional = false;
 							}
-						} else if (valorij != 0 || valor0j != 0) {
+						}else{
 							linhaProporcional = false;
 						}
-						if (linhaProporcional) {
+						if(linhaProporcional){
 							int multiplicador = valorij / valor0j;
-							for (int j = 0; j < this.getTamanhoColuna(); j++) {
+							for(int j = 0; j < this.getTamanhoColuna(); j++){
 								int novoValor = this.getValor(i, j) - multiplicador * this.getValor(0, j);
 								this.setValor(i, j, novoValor);
 							}
@@ -274,7 +274,7 @@ class Matriz{
 					}
 					break;
 			}
-		} else {
+		}else{
 			System.out.println("Matriz não é quadrada! Retornando 0");
 		}
 	
